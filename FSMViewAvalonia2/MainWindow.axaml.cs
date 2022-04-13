@@ -121,7 +121,7 @@ namespace FSMViewAvalonia2
         {
             await CreateAssetsManagerAndLoader();
 
-            string gamePath = await GameFileHelper.FindHollowKnightPath(this);
+            string gamePath = await GameFileHelper.FindAmongTreesPath(this);
             if (gamePath == null)
                 return;
 
@@ -134,7 +134,7 @@ namespace FSMViewAvalonia2
         {
             await CreateAssetsManagerAndLoader();
 
-            string gamePath = await GameFileHelper.FindHollowKnightPath(this);
+            string gamePath = await GameFileHelper.FindAmongTreesPath(this);
             if (gamePath == null)
                 return;
 

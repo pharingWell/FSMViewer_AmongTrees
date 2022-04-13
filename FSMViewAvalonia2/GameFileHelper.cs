@@ -10,23 +10,23 @@ namespace FSMViewAvalonia2
 {
     public static class GameFileHelper
     {
-        public static readonly int HOLLOWKNIGHT_APP_ID = 367520;
-        public static readonly string HOLLOWKNIGHT_GAME_NAME = "Hollow Knight";
-        public static readonly string HOLLOWKNIGHT_PATH_FILE = "hkpath.txt";
+        public static readonly int AMONGTREES_APP_ID = 367520;
+        public static readonly string AMONGTREES_GAME_NAME = "Among Trees";
+        public static readonly string AMONGTREES_PATH_FILE = "atpath.txt";
 
-        public static async Task<string> FindHollowKnightPath(Window win)
+        public static async Task<string> FindAmongTreesPath(Window win)
         {
-            if (File.Exists(HOLLOWKNIGHT_PATH_FILE))
+            if (File.Exists(AMONGTREES_PATH_FILE))
             {
-                return File.ReadAllText(HOLLOWKNIGHT_PATH_FILE);
+                return File.ReadAllText(AMONGTREES_PATH_FILE);
             }
             else
             {
-                string path = await FindSteamGamePath(win, HOLLOWKNIGHT_APP_ID, HOLLOWKNIGHT_GAME_NAME);
+                string path = await FindSteamGamePath(win, AMONGTREES_APP_ID, AMONGTREES_GAME_NAME);
 
                 if (path != null)
                 {
-                    File.WriteAllText(HOLLOWKNIGHT_PATH_FILE, path);
+                    File.WriteAllText(AMONGTREES_PATH_FILE, path);
                 }
 
                 return path;
@@ -105,18 +105,18 @@ namespace FSMViewAvalonia2
             return null;
         }
 
-        public static string FindGameFilePath(string hkRootPath, string file)
+        public static string FindGameFilePath(string atRootPath, string file)
         {
             string[] pathTests = new string[]
             {
-                "hollow_knight_Data",
-                "Hollow Knight_Data",
-                "Hollow_Knight_Data",
+                "among_trees_Data",
+                "Among_Trees_Data",
+                "Among Trees_Data",
                 Path.Combine("Contents", "Resources", "Data")
             };
             foreach (string pathTest in pathTests)
             {
-                string dataPath = Path.Combine(hkRootPath, pathTest);
+                string dataPath = Path.Combine(atRootPath, pathTest);
                 string filePath = Path.Combine(dataPath, file);
                 if (File.Exists(filePath))
                 {

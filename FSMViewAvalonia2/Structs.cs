@@ -836,9 +836,9 @@ namespace FSMViewAvalonia2
         public AnimationCurve(AssetNameResolver namer, AssetTypeValueField field)
         {
             m_Curve = StructUtil.ReadAssetList<Keyframe>(namer, field.Get("m_Curve"));
-            m_PreInfinity = field.Get("m_PreInfinity").GetValue().AsInt();
-            m_PostInfinity = field.Get("m_PostInfinity").GetValue().AsInt();
-            m_RotationOrder = field.Get("m_RotationOrder").GetValue().AsInt();
+            //m_PreInfinity = field.Get("m_PreInfinity").GetValue().AsInt();
+            //m_PostInfinity = field.Get("m_PostInfinity").GetValue().AsInt();
+            //m_RotationOrder = field.Get("m_RotationOrder").GetValue().AsInt();
         }
     }
 

@@ -33,7 +33,8 @@ namespace FSMViewAvalonia2
             //so here we read the template manually to see whether it exists and back up a bit if it doesn't
             string assemblyPath = Path.Combine(Path.GetDirectoryName(curFile.path), "Managed", "PlayMaker.dll");
             MonoDeserializer deserializer = new MonoDeserializer();
-            deserializer.Read("PlayMakerFSM", MonoDeserializer.GetAssemblyWithDependencies(assemblyPath), file.header.format);
+            
+            deserializer.Read("PlayMakerFSM", MonoDeserializer.GetAssemblyWithDependencies(assemblyPath), new UnityVersion(file.typeTree.unityVersion));
             bool hasDataField = deserializer.children[0].children[0].name == "dataVersion";
             
             return GetFSMInfos(file, table, hasDataField);
@@ -46,7 +47,6 @@ namespace FSMViewAvalonia2
             AssetNameResolver namer = new AssetNameResolver(am, curFile);
 
             FsmDataInstance dataInstance = new FsmDataInstance();
-
             AssetTypeValueField fsm = baseField.Get("fsm");
             AssetTypeValueField states = fsm.Get("states");
             AssetTypeValueField events = fsm.Get("events");
@@ -163,9 +163,11 @@ namespace FSMViewAvalonia2
                 {
                     AssetTypeInstance monoAti = am.GetATI(file, info);
                     AssetExternal ext = am.GetExtAsset(curFile, monoAti.GetBaseField().Get("m_Script"));
+                    int fileid = monoAti.GetBaseField().Get("m_Script").Get("m_FileID").GetValue().AsInt(); 
+                    long pathid = monoAti.GetBaseField().Get("m_Script").Get("m_PathID").GetValue().AsInt64();
                     AssetTypeInstance scriptAti = am.GetExtAsset(curFile, monoAti.GetBaseField().Get("m_Script")).instance;
                     AssetTypeInstance goAti = am.GetExtAsset(curFile, monoAti.GetBaseField().Get("m_GameObject")).instance;
-                    if (goAti == null) //found a scriptable object, oops
+                    if (goAti == null || (fileid==0 && pathid ==0)) //found a scriptable object, oops
                     {
                         fsmTypeId = 0;
                         continue;
